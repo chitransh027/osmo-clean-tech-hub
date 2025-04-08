@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Droplet, Facebook, Twitter, Instagram, Linkedin, ArrowUp } from 'lucide-react';
+import { Facebook, Instagram, Linkedin, ArrowUp } from 'lucide-react';
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -8,14 +8,14 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-gray-900 text-white font-montserrat">
       <div className="container mx-auto px-4">
         {/* Main Footer Content */}
-        <div className="py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Company Info */}
           <div>
             <div className="flex items-center mb-4">
-              <span className="text-2xl font-bold text-white">OSMO</span>
+              <span className="text-2xl font-bold text-white">OSMO MNC</span>
             </div>
             <p className="text-gray-400 mb-6">
               Delivering sustainable clean technology solutions for water purification, solar energy, and fluid management.
@@ -25,13 +25,10 @@ const Footer = () => {
                 <Facebook size={20} />
               </a>
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Twitter size={20} />
+                <Linkedin size={20} />
               </a>
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
                 <Instagram size={20} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Linkedin size={20} />
               </a>
             </div>
           </div>
@@ -40,59 +37,36 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              <li><a href="#solutions" className="text-gray-400 hover:text-white transition-colors">Our Solutions</a></li>
-              <li><a href="#benefits" className="text-gray-400 hover:text-white transition-colors">Benefits</a></li>
-              <li><a href="#about" className="text-gray-400 hover:text-white transition-colors">About Us</a></li>
-              <li><a href="#testimonials" className="text-gray-400 hover:text-white transition-colors">Testimonials</a></li>
-              <li><a href="#contact" className="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">About</a></li>
+              <li><a href="#products" className="text-gray-400 hover:text-white transition-colors">Product Catalogue</a></li>
+              <li><a href="#quotation" className="text-gray-400 hover:text-white transition-colors">Contact</a></li>
             </ul>
           </div>
 
-          {/* Solutions */}
+          {/* Company Info */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Solutions</h3>
-            <ul className="space-y-2">
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Water Purification</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Solar Energy Systems</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Fluid Management</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Installation Services</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Maintenance Plans</a></li>
-            </ul>
-          </div>
-
-          {/* Newsletter */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Subscribe to Our Newsletter</h3>
-            <p className="text-gray-400 mb-4">Stay updated with our latest news and offers.</p>
-            <form className="flex">
-              <input
-                type="email"
-                placeholder="Your email address"
-                className="bg-gray-800 border border-gray-700 text-white px-4 py-2 rounded-l-md focus:outline-none focus:ring-1 focus:ring-osmo-blue w-full"
-              />
-              <button type="submit" className="bg-osmo-blue hover:bg-osmo-teal px-4 py-2 rounded-r-md transition-colors">
-                Subscribe
-              </button>
-            </form>
+            <h3 className="text-lg font-semibold mb-4">Company Info</h3>
+            <address className="text-gray-400 not-italic">
+              © 2025 OSMO MNC Health Solutions<br />
+              Bicholi Hapsi Road, Bengali Square<br />
+              Indore<br /><br />
+              <a href="mailto:info@osmohealth.in" className="hover:text-white transition-colors">info@osmohealth.in</a>
+            </address>
           </div>
         </div>
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 py-6 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 mb-4 md:mb-0">
-            &copy; {new Date().getFullYear()} OSMO Clean Technology. All rights reserved.
+            &copy; {new Date().getFullYear()} OSMO MNC. All rights reserved.
           </p>
-          <div className="flex items-center space-x-6">
-            <a href="#" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
-            <button 
-              onClick={scrollToTop} 
-              className="bg-gray-800 p-2 rounded-full text-white hover:bg-gray-700 transition-colors"
-              aria-label="Scroll to top"
-            >
-              <ArrowUp size={18} />
-            </button>
-          </div>
+          <button 
+            onClick={scrollToTop} 
+            className="bg-gray-800 p-2 rounded-full text-white hover:bg-gray-700 transition-colors"
+            aria-label="Scroll to top"
+          >
+            <ArrowUp size={18} />
+          </button>
         </div>
       </div>
     </footer>
