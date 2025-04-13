@@ -18,6 +18,10 @@ const HeroSection = () => {
               <span className="text-gray-800">Solutions</span>
             </h1>
             
+            <p className="text-gray-600 text-lg md:text-xl mb-4 max-w-lg">
+              Pure Water. Smart Energy. Clean Living. Reliable Tech.
+            </p>
+            
             <p className="text-gray-600 text-lg md:text-xl mb-8 max-w-lg">
               OSMO delivers high-quality water purification systems, 
               solar energy solutions, and fluid management 

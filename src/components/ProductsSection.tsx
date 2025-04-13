@@ -3,16 +3,17 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Droplet, Sun, Wind, Activity, Thermometer } from 'lucide-react';
+import { Droplet, Sun, Wind, Activity } from 'lucide-react';
 
 const ProductsSection = () => {
-  const [activeTab, setActiveTab] = useState("water-purifiers");
+  const [activeTab, setActiveTab] = useState("water-purification");
 
   const productCategories = [
     {
-      id: "water-purifiers",
-      title: "Water Purifiers",
+      id: "water-purification",
+      title: "Water Purification",
       icon: <Droplet className="h-5 w-5" />,
+      description: "RO Systems, Alkaline/Hydrogen Water, Softeners",
       products: [
         {
           name: "Aquaguard Blaze Insta RO+UV",
@@ -50,9 +51,40 @@ const ProductsSection = () => {
       ]
     },
     {
-      id: "vacuum-cleaners",
-      title: "Vacuum Cleaners",
+      id: "solar-heating",
+      title: "Solar & Heating",
+      icon: <Sun className="h-5 w-5" />,
+      description: "Solar Panels, Heat Pumps, Geysers",
+      products: [
+        {
+          name: "EcoHeat Geyser Pro",
+          description: "Energy-efficient water heater with smart controls",
+          price: "₹29,999",
+          mrp: "₹42,000",
+          discount: "29% OFF",
+          tags: ["Energy Efficient", "Smart Control"],
+          image: "https://images.unsplash.com/photo-1543674892-7d64d45b99ad?auto=format&fit=crop&w=500&h=300",
+          bestseller: true,
+          emi: "₹2,499/mo"
+        },
+        {
+          name: "SolarPower 2kW System",
+          description: "Complete rooftop solar system with installation",
+          price: "₹1,25,000",
+          mrp: "₹1,60,000",
+          discount: "22% OFF",
+          tags: ["Rooftop", "Complete System"],
+          image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=500&h=300",
+          bestseller: true,
+          emi: "₹10,417/mo"
+        }
+      ]
+    },
+    {
+      id: "cleaning-tech",
+      title: "Cleaning Technology",
       icon: <Wind className="h-5 w-5" />,
+      description: "Vacuum Cleaners, Robotic Solutions (Eureka Forbes)",
       products: [
         {
           name: "Forbes AutoClean Pro",
@@ -79,38 +111,10 @@ const ProductsSection = () => {
       ]
     },
     {
-      id: "heat-pumps",
-      title: "Heat Pumps",
-      icon: <Thermometer className="h-5 w-5" />,
-      products: [
-        {
-          name: "EcoHeat Geyser Pro",
-          description: "Energy-efficient water heater with smart controls",
-          price: "₹29,999",
-          mrp: "₹42,000",
-          discount: "29% OFF",
-          tags: ["Energy Efficient", "Smart Control"],
-          image: "https://images.unsplash.com/photo-1543674892-7d64d45b99ad?auto=format&fit=crop&w=500&h=300",
-          bestseller: true,
-          emi: "₹2,499/mo"
-        },
-        {
-          name: "ThermoPlus System X",
-          description: "Whole-house heating solution with air exchange",
-          price: "₹79,999",
-          mrp: "₹120,000",
-          discount: "33% OFF",
-          tags: ["Whole House", "Air Exchange"],
-          image: "https://images.unsplash.com/photo-1613274554329-70f997b53b06?auto=format&fit=crop&w=500&h=300",
-          bestseller: false,
-          emi: "₹6,667/mo"
-        }
-      ]
-    },
-    {
-      id: "fluid-solar",
-      title: "Fluid Management & Solar",
+      id: "fluid-management",
+      title: "Fluid Management",
       icon: <Activity className="h-5 w-5" />,
+      description: "Pressure Pumps, Water Transfer & Circulation Systems",
       products: [
         {
           name: "TurboFlow Pump X200",
@@ -124,15 +128,15 @@ const ProductsSection = () => {
           emi: "₹1,541/mo"
         },
         {
-          name: "SolarPower 2kW System",
-          description: "Complete rooftop solar system with installation",
-          price: "₹1,25,000",
-          mrp: "₹1,60,000",
-          discount: "22% OFF",
-          tags: ["Rooftop", "Complete System"],
-          image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=500&h=300",
+          name: "CircuFlow Pro",
+          description: "Advanced water circulation system for large properties",
+          price: "₹32,500",
+          mrp: "₹45,000",
+          discount: "28% OFF",
+          tags: ["High Efficiency", "Smart Control"],
+          image: "https://images.unsplash.com/photo-1613274554329-70f997b53b06?auto=format&fit=crop&w=500&h=300",
           bestseller: true,
-          emi: "₹10,417/mo"
+          emi: "₹2,708/mo"
         }
       ]
     }
@@ -150,7 +154,7 @@ const ProductsSection = () => {
           {/* Centered Product Category Tabs */}
           <div className="flex justify-center mb-12">
             <Tabs 
-              defaultValue="water-purifiers" 
+              defaultValue="water-purification" 
               value={activeTab}
               onValueChange={setActiveTab}
               className="w-full max-w-3xl"
@@ -167,6 +171,10 @@ const ProductsSection = () => {
                   </TabsTrigger>
                 ))}
               </TabsList>
+              
+              <div className="text-sm text-gray-600 mt-3">
+                {productCategories.find(cat => cat.id === activeTab)?.description}
+              </div>
               
               {productCategories.map((category) => (
                 <TabsContent key={category.id} value={category.id} className="mt-8">
