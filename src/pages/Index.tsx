@@ -2,22 +2,22 @@
 import React from 'react';
 import Header from '../components/Header';
 import HeroSection from '../components/HeroSection';
-import SolutionsSection from '../components/SolutionsSection';
-import BenefitsSection from '../components/BenefitsSection';
-import AboutSection from '../components/AboutSection';
+import WhyChooseUsSection from '../components/WhyChooseUsSection';
+import ProductsSection from '../components/ProductsSection';
+import PartnersSection from '../components/PartnersSection';
 import TestimonialsSection from '../components/TestimonialsSection';
 import ContactSection from '../components/ContactSection';
 import Footer from '../components/Footer';
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen font-montserrat">
       <Header />
       <main>
         <HeroSection />
-        <SolutionsSection />
-        <BenefitsSection />
-        <AboutSection />
+        <WhyChooseUsSection />
+        <ProductsSection />
+        <PartnersSection />
         <TestimonialsSection />
         <ContactSection />
       </main>
