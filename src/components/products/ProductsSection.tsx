@@ -18,13 +18,12 @@ const ProductsSection = () => {
             Explore our complete range of clean technology solutions at the best prices
           </p>
           
-          {/* Centered Product Category Tabs */}
           <div className="flex justify-center mb-12">
             <Tabs 
               defaultValue="water-purification" 
               value={activeTab}
               onValueChange={setActiveTab}
-              className="w-full max-w-3xl"
+              className="w-full"
             >
               <ProductCategoryTabs 
                 categories={productCategories} 
