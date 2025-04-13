@@ -21,12 +21,16 @@ const Header = () => {
 
   return (
     <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-montserrat ${
-        isScrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-montserrat flex justify-center ${
+        isScrolled ? 'py-2' : 'py-4'
       }`}
     >
-      <div className="container mx-auto px-4 flex justify-between items-center">
-        <div className="flex items-center">
+      <div 
+        className={`flex justify-between items-center max-w-3xl mx-auto px-6 rounded-full transition-all duration-300 ${
+          isScrolled ? 'bg-white shadow-md' : 'bg-white/70 backdrop-blur-md'
+        } ${isScrolled ? 'w-auto' : 'w-auto hover:w-full hover:bg-white/90'}`}
+      >
+        <div className="flex items-center py-2">
           <a href="#" className="flex items-center">
             <span className="text-2xl font-bold text-osmo-blue">
               OSMO MNC
@@ -60,7 +64,7 @@ const Header = () => {
       
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-white pt-4 pb-6 shadow-md">
+        <div className="lg:hidden fixed top-[60px] left-0 right-0 bg-white pt-4 pb-6 shadow-md">
           <div className="container mx-auto px-4 flex flex-col space-y-4">
             <a 
               href="#products" 
