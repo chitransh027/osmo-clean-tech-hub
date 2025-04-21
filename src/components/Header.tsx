@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   NavigationMenu,
   NavigationMenuList,
@@ -10,11 +10,14 @@ import {
   NavigationMenuLink,
   navigationMenuTriggerStyle
 } from "@/components/ui/navigation-menu";
+import { cn } from '@/lib/utils';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const isHomePage = location.pathname === '/';
 
   useEffect(() => {
@@ -29,6 +32,27 @@ const Header = () => {
     };
   }, []);
 
+  const handleSphereClick = (path: string) => {
+    if (location.pathname === path) return;
+    
+    setIsAnimating(true);
+    
+    // Wait for animation to complete before navigating
+    setTimeout(() => {
+      navigate(path);
+      setTimeout(() => {
+        setIsAnimating(false);
+      }, 800); // Animation completion time
+    }, 500); // Wait for half of the animation before navigating
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent, path: string) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleSphereClick(path);
+    }
+  };
+
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-montserrat flex justify-center ${
@@ -41,17 +65,36 @@ const Header = () => {
         } ${isScrolled ? 'w-auto' : 'w-auto hover:bg-white/90'}`}
       >
         {/* Left Sphere - Water (Home) */}
-        <Link to="/" className="flex-shrink-0">
-          <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
-            isHomePage ? 'bg-osmo-blue text-white' : 'bg-gray-100 text-osmo-blue'
-          }`}>
-            <div className="relative w-10 h-10 rounded-full overflow-hidden">
+        <div 
+          onClick={() => handleSphereClick('/')}
+          onKeyDown={(e) => handleKeyDown(e, '/')}
+          tabIndex={0}
+          role="button"
+          aria-label="Home View"
+          className={cn(
+            "flex-shrink-0 cursor-pointer transition-all duration-500 transform-gpu",
+            isAnimating && "animate-sphere-toggle",
+            isHomePage ? "sphere-active" : ""
+          )}
+        >
+          <div className={`
+            water-sphere 
+            w-12 h-12 
+            rounded-full 
+            flex items-center justify-center 
+            transition-all duration-300 
+            transform-gpu
+            hover:translate-z-4
+            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-osmo-blue
+            ${isHomePage ? 'bg-osmo-blue text-white' : 'bg-gray-100 text-osmo-blue'}
+          `}>
+            <div className="water-sphere-inner relative w-10 h-10 rounded-full overflow-hidden transform-style-3d">
               <div className="absolute inset-0 bg-white rounded-full"></div>
-              <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-osmo-blue rounded-b-full"></div>
-              <div className="absolute top-1/2 left-1/2 w-8 h-[1px] bg-slate-100 -translate-x-1/2 -translate-y-1/2 opacity-60"></div>
+              <div className="water-fill absolute bottom-0 left-0 right-0 h-1/2 bg-osmo-blue rounded-b-full"></div>
+              <div className="water-line absolute top-1/2 left-1/2 w-8 h-[1px] bg-slate-100 -translate-x-1/2 -translate-y-1/2 opacity-60"></div>
             </div>
           </div>
-        </Link>
+        </div>
         
         {/* Desktop Navigation */}
         <NavigationMenu className="hidden lg:flex mx-4">
@@ -75,16 +118,35 @@ const Header = () => {
         </NavigationMenu>
         
         {/* Right Sphere - Sun (Solar) */}
-        <Link to="/solar" className="flex-shrink-0">
-          <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
-            !isHomePage ? 'bg-osmo-teal text-white' : 'bg-amber-50 text-amber-500'
-          }`}>
-            <div className="relative w-10 h-10 rounded-full overflow-hidden">
-              <div className="absolute inset-0 bg-amber-400 rounded-full"></div>
-              <div className="absolute inset-2 bg-amber-300 rounded-full"></div>
+        <div 
+          onClick={() => handleSphereClick('/solar')}
+          onKeyDown={(e) => handleKeyDown(e, '/solar')}
+          tabIndex={0}
+          role="button"
+          aria-label="Solar View"
+          className={cn(
+            "flex-shrink-0 cursor-pointer transition-all duration-500 transform-gpu",
+            isAnimating && "animate-sphere-toggle",
+            !isHomePage ? "sphere-active" : ""
+          )}
+        >
+          <div className={`
+            sun-sphere 
+            w-12 h-12 
+            rounded-full 
+            flex items-center justify-center 
+            transition-all duration-300
+            transform-gpu
+            hover:translate-z-4
+            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-osmo-teal
+            ${!isHomePage ? 'bg-osmo-teal text-white' : 'bg-amber-50 text-amber-500'}
+          `}>
+            <div className="sun-sphere-inner relative w-10 h-10 rounded-full overflow-hidden animate-spin-slow transform-style-3d">
+              <div className="absolute inset-0 bg-amber-400 rounded-full sun-gradient"></div>
+              <div className="absolute inset-2 bg-amber-300 rounded-full sun-core"></div>
               {Array.from({length: 8}).map((_, index) => (
                 <div key={index} 
-                  className="absolute w-1 h-3 bg-amber-500"
+                  className="absolute w-1 h-3 bg-amber-500 sun-ray"
                   style={{
                     top: '50%',
                     left: '50%',
@@ -95,7 +157,7 @@ const Header = () => {
               ))}
             </div>
           </div>
-        </Link>
+        </div>
         
         {/* Mobile Menu Button */}
         <div className="lg:hidden">
@@ -136,12 +198,19 @@ const Header = () => {
               About Us
             </Link>
             <div className="flex justify-between pt-2">
-              <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
-                <Button variant="outline" className="w-[48%]">Home</Button>
-              </Link>
-              <Link to="/solar" onClick={() => setIsMobileMenuOpen(false)}>
-                <Button className="w-[48%] bg-osmo-teal">Solar Solutions</Button>
-              </Link>
+              <Button 
+                variant="outline" 
+                className={`w-[48%] ${isHomePage ? 'bg-osmo-blue text-white border-osmo-blue' : ''}`}
+                onClick={() => handleSphereClick('/')}
+              >
+                Home
+              </Button>
+              <Button 
+                className={`w-[48%] ${!isHomePage ? 'bg-osmo-teal' : 'bg-amber-400 text-amber-900'}`}
+                onClick={() => handleSphereClick('/solar')}
+              >
+                Solar Solutions
+              </Button>
             </div>
           </div>
         </div>
